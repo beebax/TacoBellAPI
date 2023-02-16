@@ -13,30 +13,39 @@ namespace TacoBellAPI.Controllers
     {
         private TacoBellDbContext dbContext = new TacoBellDbContext();
 
+        //api/taco
         [HttpGet]
-        public List<Taco> GetAll()
+        public List<Taco> GetAllTacos()
         {
             return dbContext.Tacos.ToList();
         }
        
 
-        //api/taco/[SoftShell]
-        [HttpGet("{SoftShell}")]
-        public List<Taco> GetByCategory(bool SoftShell)
+        //api/taco/[true or false]
+        [HttpGet("SoftShell")]
+        public List<Taco> GetBySoftShell(bool SoftShell)
         {
             return dbContext.Tacos.Where(b => b.SoftShell == SoftShell).ToList();
         }
 
-        ////api/taco?name=[Name]&cost=[Cost]&softshell=[SoftShell]&dorito=[Dorito]
-        //[HttpPost]
-        //public Taco AddTaco(string name, float cost, bool softshell, bool dorito)
-        //{
-        //    Taco newTaco = new Taco(name, cost, softshell, dorito);
-        //    dbContext.Tacos.Add(newTaco);
-        //    dbContext.SaveChanges();
+        //api/taco?name=[Name]&cost=[Cost]&softshell=[SoftShell]&dorito=[Dorito]
+        [HttpPost]
+        public Taco AddTaco(string name, float cost, bool softshell, bool dorito)
+        {
+            Taco newTaco = new Taco
+            {
+                Name = name,
+                Cost = cost,
+                SoftShell = softshell,
+                Dorito = dorito
 
-        //    return newTaco;
-        //}
+            };
+
+            dbContext.Tacos.Add(newTaco);
+            dbContext.SaveChanges();
+
+            return newTaco;
+        }
     }
 }
 

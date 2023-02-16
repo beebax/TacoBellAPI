@@ -15,12 +15,4 @@ public partial class Taco
 
     public bool? Dorito { get; set; }
 
-    //public Taco(string _name, float _cost, bool _softshell, bool _dorito)
-    //{
-    //    //Id = _id;
-    //    Name = _name;
-    //    Cost = _cost;
-    //    SoftShell = _softshell;
-    //    Dorito = _dorito;
-    //}
 }

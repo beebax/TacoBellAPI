@@ -13,30 +13,36 @@ namespace TacoBellAPI.Controllers
     {
         private TacoBellDbContext dbContext = new TacoBellDbContext();
 
+        //api/burrito
         [HttpGet]
-        public List<Burrito> GetAll()
+        public List<Burrito> GetAllBurritos()
         {
             return dbContext.Burritos.ToList();
         }
-        //ANY CHANGES TO DB (ADDING OR UPDATING) DON'T FORGET TO dbContext.SaveChanges();
 
-        //api/taco/[Bean]
-        [HttpGet("{Bean}")]
-        public List<Burrito> GetByCategory(bool Bean)
+        //api/burrito/[true or false]
+        [HttpGet("Bean")]
+        public List<Burrito> GetByBean(bool Bean)
         {
             return dbContext.Burritos.Where(b => b.Bean == Bean).ToList();
         }
 
-        ////api/burrito?name=[Name]&cost=[Cost]&bean=[Bean]
-        //[HttpPost]
-        //public Burrito AddBurrito(int id, string name, float cost, bool bean)
-        //{
-        //    Burrito newBurrito = new Burrito(id, name, cost, bean);
-        //    dbContext.Add(newBurrito);
-        //    dbContext.SaveChanges();
+        //api/burrito?name=[Name]&cost=[Cost]&bean=[true or false]
+        [HttpPost]
+        public Burrito AddBurrito(string name, float cost, bool bean)
+        {
+            Burrito newBurrito = new Burrito()
+            {
+                Name = name,
+                Cost = cost,
+                Bean = bean
+            };
 
-        //    return newBurrito;
-        //}
+            dbContext.Burritos.Add(newBurrito);
+            dbContext.SaveChanges();
+
+            return newBurrito;
+        }
     }
 }
 
